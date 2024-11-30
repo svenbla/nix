@@ -39,7 +39,6 @@
       gl = "git pull";
       gb = "git blame --color-lines";
       gd = "git diff";
-
     };
 
     # Custom initialization

@@ -1,5 +1,4 @@
-{ pkgs, ...}: {
-
+{pkgs, ...}: {
   ##########################################################################
   #
   #  Install all apps and packages here.
@@ -33,10 +32,9 @@
     nil
     alejandra
   ];
-  
+
   homebrew = {
     enable = true;
-    
 
     onActivation = {
       autoUpdate = false;
@@ -56,7 +54,7 @@
 
     # `brew install --cask`
     # TODO Feel free to add your favorite apps here.
-    /*casks = [
+    casks = [
       "google-chrome"
       "affinity-designer@1"
       "affinity-photo@1"
@@ -88,7 +86,7 @@
       "binary-ninja-free"
       "burp-suit"
     ];
-    
+
     masApps = {
       Xcode = 497799835;
       GoodNotes = 1444383602;
@@ -100,6 +98,5 @@
       WireGuard = 1451685025;
       Parcel = 639968404;
     };
-    */
   };
 }

@@ -1,9 +1,7 @@
-_:
-{
+_: {
   nix.settings = {
     # enable flakes globally
     experimental-features = ["nix-command" "flakes"];
-
   };
   nixpkgs.config.allowUnfree = true;
   # Auto upgrade nix package and the daemon service.

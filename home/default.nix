@@ -1,6 +1,4 @@
-{ username, ... }:
-
-{
+{username, ...}: {
   # import sub modules
   imports = [
     ./neovim.nix

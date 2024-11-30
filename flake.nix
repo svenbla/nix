@@ -26,7 +26,7 @@
       url = "github:lnl7/nix-darwin";
       inputs.nixpkgs.follows = "nixpkgs-darwin";
     };
-     # home-manager, used for managing user configuration
+    # home-manager, used for managing user configuration
     home-manager = {
       url = "github:nix-community/home-manager/release-24.05";
       # The `follows` keyword in inputs is used for inheritance.
@@ -67,17 +67,17 @@
         ./modules/nix-core.nix
         ./modules/system.nix
         ./modules/apps.nix
-        ./modules/host-users.nix 
+        ./modules/host-users.nix
         nix-homebrew.darwinModules.nix-homebrew
-          {
-            nix-homebrew = {
-              enable = true;
-              enableRosetta = true;
-              user = username;
-              autoMigrate = true;
-            };
-          }
-          # home manager
+        {
+          nix-homebrew = {
+            enable = true;
+            enableRosetta = true;
+            user = username;
+            autoMigrate = true;
+          };
+        }
+        # home manager
         home-manager.darwinModules.home-manager
         {
           home-manager.useGlobalPkgs = true;
