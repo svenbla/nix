@@ -26,6 +26,15 @@
       url = "github:lnl7/nix-darwin";
       inputs.nixpkgs.follows = "nixpkgs-darwin";
     };
+     # home-manager, used for managing user configuration
+    home-manager = {
+      url = "github:nix-community/home-manager/release-24.05";
+      # The `follows` keyword in inputs is used for inheritance.
+      # Here, `inputs.nixpkgs` of home-manager is kept consistent with the `inputs.nixpkgs` of the current flake,
+      # to avoid problems caused by different versions of nixpkgs dependencies.
+      inputs.nixpkgs.follows = "nixpkgs-darwin";
+    };
+    nix-homebrew.url = "github:zhaofengli-wip/nix-homebrew";
   };
 
   # The `outputs` function will return all the build results of the flake.
@@ -37,6 +46,8 @@
     self,
     nixpkgs,
     darwin,
+    home-manager,
+    nix-homebrew,
     ...
   }: let
     # TODO replace with your own username, system and hostname
@@ -56,7 +67,25 @@
         ./modules/nix-core.nix
         ./modules/system.nix
         ./modules/apps.nix
-        ./modules/host-users.nix
+        ./modules/host-users.nix 
+        nix-homebrew.darwinModules.nix-homebrew
+          {
+            nix-homebrew = {
+              enable = true;
+              enableRosetta = true;
+              user = username;
+              autoMigrate = true;
+            };
+          }
+          # home manager
+        home-manager.darwinModules.home-manager
+        {
+          home-manager.useGlobalPkgs = true;
+          home-manager.backupFileExtension = "bak";
+          home-manager.useUserPackages = true;
+          home-manager.extraSpecialArgs = specialArgs;
+          home-manager.users.${username} = import ./home;
+        }
       ];
     };
     # nix code formatter
