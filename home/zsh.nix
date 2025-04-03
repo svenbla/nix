@@ -1,4 +1,9 @@
-{pkgs, ...}: {
+{
+  pkgs,
+  hostname,
+  username,
+  ...
+}: {
   programs.zsh = {
     enable = true;
 
@@ -28,7 +33,8 @@
       la = "eza -A";
       tree = "eza --tree";
 
-      e = "nvim";
+      e = "nvim .";
+      n = "nvim";
 
       gs = "git status";
       ga = "git add";
@@ -39,6 +45,8 @@
       gl = "git pull";
       gb = "git blame --color-lines";
       gd = "git diff";
+
+      rebuildnix = "darwin-rebuild switch --flake /Users/${username}/.config/nix#${hostname}";
     };
 
     # Custom initialization

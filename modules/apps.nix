@@ -18,6 +18,7 @@
   # Related Discussion: https://discourse.nixos.org/t/darwin-again/29331
 
   environment.systemPackages = with pkgs; [
+    ripgrep
     zoxide
     nmap
     iperf
@@ -31,8 +32,14 @@
     starship
     nil
     alejandra
+    jellyfin-ffmpeg
+    direnv
+    python312
+    python312Packages.pip
+    python312Packages.cmake
+    pkg-config
+    qemu
   ];
-
   homebrew = {
     enable = true;
 
@@ -55,39 +62,46 @@
     # `brew install --cask`
     # TODO Feel free to add your favorite apps here.
     casks = [
-      "google-chrome"
-      "affinity-designer@1"
-      "affinity-photo@1"
-      "rectangle"
-      "maccy"
+      # "google-chrome"
+      "slack"
+      "notion"
+      "ghostty"
+      # "affinity-designer@1"
+      # "affinity-photo@1"
+      "affinity-photo"
+      "affinity-designer"
+      "affinity-publisher"
+      # "rectangle"
+      # "maccy"
       "karabiner-elements"
-      "anydesk"
-      "chrome-remote-desktop-host"
-      "cleanmymac"
-      "windscribe"
-      "spotify"
-      "iterm2"
-      "wireshark"
-      "visual-studio-code"
-      "webstorm"
-      "intellij-idea"
-      "datagrip"
+      # "anydesk"
+      # "chrome-remote-desktop-host"
+      # "cleanmymac"
+      # "windscribe"
+      # "spotify"
+      # "iterm2"
+      # "wireshark"
+      # "visual-studio-code"
+      # "webstorm"
+      # "intellij-idea"
+      # "datagrip"
       "docker"
-      "numi"
-      "qflipper"
-      "sonic-visualiser"
-      "audacity "
-      "angry-ip-scanner"
-      "sublime-text"
-      "figma"
-      "qbittorrent"
-      "balenaetcher"
-      "postman"
-      "binary-ninja-free"
-      "burp-suit"
+      # "numi"
+      # "qflipper"
+      # "sonic-visualiser"
+      # "audacity "
+      # "angry-ip-scanner"
+      # "sublime-text"
+      # "figma"
+      # "qbittorrent"
+      # "balenaetcher"
+      # "postman"
+      # "binary-ninja-free"
+      # "burp-suit"
     ];
 
-    masApps = {
+    /*
+      masApps = {
       Xcode = 497799835;
       GoodNotes = 1444383602;
       Excel = 462058435;
@@ -98,5 +112,6 @@
       WireGuard = 1451685025;
       Parcel = 639968404;
     };
+    */
   };
 }
