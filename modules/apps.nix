@@ -1,4 +1,5 @@
-{pkgs, ...}: {
+{ pkgs, ... }:
+{
   ##########################################################################
   #
   #  Install all apps and packages here.
@@ -18,7 +19,9 @@
   # Related Discussion: https://discourse.nixos.org/t/darwin-again/29331
 
   environment.systemPackages = with pkgs; [
+    obsidian
     ripgrep
+    nodejs_22
     zoxide
     nmap
     iperf
@@ -39,6 +42,9 @@
     python312Packages.cmake
     pkg-config
     qemu
+    dotnetCorePackages.sdk_9_0-bin
+    cyberduck
+    typst
   ];
   homebrew = {
     enable = true;
@@ -51,22 +57,26 @@
 
     taps = [
       "homebrew/services"
+      "deskflow/homebrew-tap"
     ];
 
     # `brew install`
     # TODO Feel free to add your favorite apps here.
     brews = [
       # "aria2"  # download tool
+      "watchman"
     ];
 
     # `brew install --cask`
     # TODO Feel free to add your favorite apps here.
     casks = [
       # "google-chrome"
+      "deskflow/homebrew-tap/deskflow"
       "slack"
       "notion"
       "ghostty"
       # "affinity-designer@1"
+      "claude"
       # "affinity-photo@1"
       "affinity-photo"
       "affinity-designer"
@@ -86,6 +96,7 @@
       # "intellij-idea"
       # "datagrip"
       "docker"
+      "docker-desktop"
       # "numi"
       # "qflipper"
       # "sonic-visualiser"
@@ -101,17 +112,17 @@
     ];
 
     /*
-      masApps = {
-      Xcode = 497799835;
-      GoodNotes = 1444383602;
-      Excel = 462058435;
-      Word = 462054704;
-      PowerPoint = 462062816;
-      ParallelsDesktop = 1085114709;
-      KeyNote = 409183694;
-      WireGuard = 1451685025;
-      Parcel = 639968404;
-    };
+        masApps = {
+        Xcode = 497799835;
+        GoodNotes = 1444383602;
+        Excel = 462058435;
+        Word = 462054704;
+        PowerPoint = 462062816;
+        ParallelsDesktop = 1085114709;
+        KeyNote = 409183694;
+        WireGuard = 1451685025;
+        Parcel = 639968404;
+      };
     */
   };
 }

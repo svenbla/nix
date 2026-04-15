@@ -3,7 +3,8 @@
   hostname,
   username,
   ...
-}: {
+}:
+{
   programs.zsh = {
     enable = true;
 
@@ -50,13 +51,18 @@
     };
 
     # Custom initialization
-    initExtra = ''
-      DISABLE_UNTRACKED_FILES_DIRTY="true"
-      HISTSIZE=999999999
-      SAVEHIST=999999999
+    initContent = ''
+          DISABLE_UNTRACKED_FILES_DIRTY="true"
+          HISTSIZE=999999999
+          SAVEHIST=999999999
 
-      setopt HIST_EXPIRE_DUPS_FIRST    # Expire duplicate entries first when trimming history.
-      eval "$(starship init zsh)"
+          setopt HIST_EXPIRE_DUPS_FIRST    # Expire duplicate entries first when trimming history.
+          eval "$(starship init zsh)"
+
+      export PATH="$PATH:/Users/${username}/.dotnet/tools"
+
+      export ANDROID_HOME="$HOME/Library/Android/sdk" # macOS default
+      export PATH="$ANDROID_HOME/emulator:$ANDROID_HOME/platform-tools:$ANDROID_HOME/cmdline-tools/latest/bin:$PATH"
     '';
 
     plugins = [
