@@ -1,5 +1,4 @@
-{ pkgs, ... }:
-{
+{pkgs, ...}: {
   ##########################################################################
   #
   #  Install all apps and packages here.
@@ -61,68 +60,65 @@
     ];
 
     # `brew install`
-    # TODO Feel free to add your favorite apps here.
     brews = [
       # "aria2"  # download tool
       "watchman"
     ];
 
     # `brew install --cask`
-    # TODO Feel free to add your favorite apps here.
     casks = [
-      # "google-chrome"
-      "deskflow/homebrew-tap/deskflow"
-      "slack"
-      "notion"
-      "ghostty"
-      # "affinity-designer@1"
-      "claude"
-      # "affinity-photo@1"
       "affinity-photo"
       "affinity-designer"
       "affinity-publisher"
-      # "rectangle"
-      # "maccy"
-      "karabiner-elements"
       # "anydesk"
-      # "chrome-remote-desktop-host"
-      # "cleanmymac"
-      # "windscribe"
-      # "spotify"
-      # "iterm2"
-      # "wireshark"
-      # "visual-studio-code"
-      # "webstorm"
-      # "intellij-idea"
-      # "datagrip"
-      "docker"
-      "docker-desktop"
-      # "numi"
-      # "qflipper"
-      # "sonic-visualiser"
+      # "affinity-photo@1"
       # "audacity "
       # "angry-ip-scanner"
-      # "sublime-text"
-      # "figma"
-      # "qbittorrent"
-      # "balenaetcher"
-      # "postman"
+      # "affinity-designer@1"
       # "binary-ninja-free"
       # "burp-suit"
+      # "balenaetcher"
+      "claude"
+      # "chrome-remote-desktop-host"
+      # "cleanmymac"
+      "deskflow/homebrew-tap/deskflow"
+      "docker-desktop"
+      # "datagrip"
+      # "figma"
+      "ghostty"
+      # "google-chrome"
+      # "iterm2"
+      # "intellij-idea"
+      "karabiner-elements"
+      # "maccy"
+      "notion"
+      # "numi"
+      # "postman"
+      # "qflipper"
+      # "qbittorrent"
+      # "rectangle"
+      "slack"
+      # "sonic-visualiser"
+      # "sublime-text"
+      # "spotify"
+      # "visual-studio-code"
+      # "windscribe"
+      # "webstorm"
+      # "wireshark"
     ];
 
     /*
-        masApps = {
-        Xcode = 497799835;
-        GoodNotes = 1444383602;
-        Excel = 462058435;
-        Word = 462054704;
-        PowerPoint = 462062816;
-        ParallelsDesktop = 1085114709;
-        KeyNote = 409183694;
-        WireGuard = 1451685025;
-        Parcel = 639968404;
-      };
+      masApps = {
+      Xcode = 497799835;
+      GoodNotes = 1444383602;
+      Excel = 462058435;
+      Word = 462054704;
+      PowerPoint = 462062816;
+      ParallelsDesktop = 1085114709;
+      KeyNote = 409183694;
+      WireGuard = 1451685025;
+      Parcel = 639968404;
+    };
     */
   };
 }
