@@ -39,7 +39,6 @@ in
       };
 
       "*" = {
-        # ~/.config/1Password/ssh/agent.toml.
         identityAgent = onePasswordAgentSocket;
       };
     };
