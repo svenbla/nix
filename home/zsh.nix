@@ -1,7 +1,6 @@
 {
   pkgs,
-  hostname,
-  username,
+  meta,
   ...
 }: {
   programs.zsh = {
@@ -46,7 +45,7 @@
       gb = "git blame --color-lines";
       gd = "git diff";
 
-      rebuildnix = "darwin-rebuild switch --flake /Users/${username}/.config/nix#${hostname}";
+      rebuildnix = "darwin-rebuild switch --flake /Users/${meta.username}/.config/nix#${meta.name}";
     };
 
     # Custom initialization
@@ -58,7 +57,7 @@
           setopt HIST_EXPIRE_DUPS_FIRST    # Expire duplicate entries first when trimming history.
           eval "$(starship init zsh)"
 
-      export PATH="$PATH:/Users/${username}/.dotnet/tools"
+      export PATH="$PATH:/Users/${meta.username}/.dotnet/tools"
 
       export ANDROID_HOME="$HOME/Library/Android/sdk" # macOS default
       export PATH="$ANDROID_HOME/emulator:$ANDROID_HOME/platform-tools:$ANDROID_HOME/cmdline-tools/latest/bin:$PATH"

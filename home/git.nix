@@ -1,11 +1,9 @@
-{ pkgs, ... }:
-let
+{pkgs, ...}: let
   opSshSignProgram =
     if pkgs.stdenv.isDarwin
     then "/Applications/1Password.app/Contents/MacOS/op-ssh-sign"
     else "${pkgs._1password-gui}/bin/op-ssh-sign";
-in
-{
+in {
   programs.git = {
     enable = true;
 

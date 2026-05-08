@@ -1,7 +1,6 @@
-{username, ...}: {
+{meta, ...}: {
   # import sub modules
   imports = [
-    ./karabiner
     ./neovim.nix
     ./zsh.nix
     ./zoxide.nix
@@ -14,8 +13,8 @@
   # Home Manager needs a bit of information about you and the
   # paths it should manage.
   home = {
-    username = username;
-    homeDirectory = "/Users/${username}";
+    username = meta.username;
+    homeDirectory = "/Users/${meta.username}";
 
     # This value determines the Home Manager release that your
     # configuration is compatible with. This helps avoid breakage

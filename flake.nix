@@ -1,15 +1,18 @@
 {
-  description = "Nix for macOS configuration";
+  description = "nixos and macos configuration";
 
   # This is the standard format for flake.nix. `inputs` are the dependencies of the flake,
   # Each item in `inputs` will be passed as a parameter to the `outputs` function after being pulled and built.
   inputs = {
     # nixpkgs-darwin.url = "github:nixos/nixpkgs/nixpkgs-unstable";
+    nixpkgs.url = "github:nixos/nixpkgs/nixpkgs-25.11-darwin";
     nixpkgs-darwin.url = "github:nixos/nixpkgs/nixpkgs-25.11-darwin";
+
     darwin = {
       url = "github:nix-darwin/nix-darwin/nix-darwin-25.11/";
       inputs.nixpkgs.follows = "nixpkgs-darwin";
     };
+
     # home-manager, used for managing user configuration
     home-manager = {
       url = "github:nix-community/home-manager/release-25.11";
@@ -18,7 +21,20 @@
       # to avoid problems caused by different versions of nixpkgs dependencies.
       inputs.nixpkgs.follows = "nixpkgs-darwin";
     };
-    nix-homebrew.url = "github:zhaofengli-wip/nix-homebrew";
+
+    # hyprland.url = "git+https://github.com/hyprwm/Hyprland?submodules=1";
+    # hyprland-plugins = {
+    #   url = "github:hyprwm/hyperland-plugins";
+    #   inputs.hyprland.follows = "hyprland";
+    # };
+
+    # elephant.url = "github:abenz1267/elephant";
+    # walker = {
+    #   url = "github:abenz1267/walker";
+    #   inputs.elephant.follows = "elephant";
+    # };
+
+    nix-homebrew.url = "github:zhaofengli/nix-homebrew";
   };
 
   # The `outputs` function will return all the build results of the flake.
@@ -34,45 +50,80 @@
     nix-homebrew,
     ...
   }: let
-    # TODO replace with your own username, system and hostname
-    username = "svenbla";
-    system = "aarch64-darwin"; # aarch64-darwin or x86_64-darwin
-    hostname = "svenbla-mbp";
+    systems = [
+      "aarch64-darwin"
+      "x86_64-linux"
+    ];
 
-    specialArgs =
-      inputs
-      // {
-        inherit username hostname;
+    username = "svenbla";
+
+    hosts = [
+      {
+        username = username;
+        name = "svenbla-mbp";
+        system = "darwin";
+        platform = "aarch64-darwin";
+      }
+      {
+        username = username;
+        name = "svenbla-pc";
+        system = "linux";
+        platform = "x86_64-linux";
+      }
+    ];
+
+    forAllSystems = fn: nixpkgs.lib.genAttrs systems (system: fn {pkgs = import nixpkgs {inherit system;};});
+
+    forDarwinHosts = host: {
+      name = host.name;
+      value = darwin.lib.darwinSystem {
+        system = host.platform;
+        specialArgs = {
+          inherit inputs;
+          meta = host;
+        };
+        modules = [
+          ./hosts/darwin/configuration.nix
+          nix-homebrew.darwinModules.nix-homebrew
+          {
+            nix-homebrew = {
+              enable = true;
+              enableRosetta = true;
+              user = host.username;
+              autoMigrate = true;
+            };
+          }
+
+          home-manager.darwinModules.home-manager
+          {
+            home-manager.useGlobalPkgs = true;
+            home-manager.backupFileExtension = "bak";
+            home-manager.useUserPackages = true;
+            home-manager.users.${host.username} = import ./hosts/darwin/home.nix;
+            home-manager.extraSpecialArgs = {
+              inherit inputs;
+              meta = host;
+            };
+          }
+        ];
       };
-  in {
-    darwinConfigurations."${hostname}" = darwin.lib.darwinSystem {
-      inherit system specialArgs;
-      modules = [
-        ./modules/nix-core.nix
-        ./modules/system.nix
-        ./modules/apps.nix
-        ./modules/host-users.nix
-        nix-homebrew.darwinModules.nix-homebrew
-        {
-          nix-homebrew = {
-            enable = true;
-            enableRosetta = true;
-            user = username;
-            autoMigrate = true;
-          };
-        }
-        # home manager
-        home-manager.darwinModules.home-manager
-        {
-          home-manager.useGlobalPkgs = true;
-          home-manager.backupFileExtension = "bak";
-          home-manager.useUserPackages = true;
-          home-manager.extraSpecialArgs = specialArgs;
-          home-manager.users.${username} = import ./home;
-        }
-      ];
     };
+  in {
+    #nixosConfigurations = builtins.listToAttrs (map forLinuxHosts (builtins.filter (h: h.system == "linux") hosts));
+    darwinConfigurations = builtins.listToAttrs (map forDarwinHosts (builtins.filter (h: h.system == "darwin") hosts));
+
+    formatter = forAllSystems ({pkgs}: pkgs.alejandra);
+
+    # darwinConfigurations."${hostname}" = darwin.lib.darwinSystem {
+    #   inherit system specialArgs;
+    #   modules = [
+    #     ./modules/nix-core.nix
+    #     ./modules/system.nix
+    #     ./modules/apps.nix
+    #     ./modules/host-users.nix
+    #     # home manager
+    #   ];
+    # };
     # nix code formatter
-    formatter.${system} = nixpkgs.legacyPackages.${system}.alejandra;
   };
 }
