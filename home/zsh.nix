@@ -2,7 +2,8 @@
   pkgs,
   meta,
   ...
-}: {
+}:
+{
   programs.zsh = {
     enable = true;
 
@@ -45,7 +46,7 @@
       gb = "git blame --color-lines";
       gd = "git diff";
 
-      rebuildnix = "darwin-rebuild switch --flake /Users/${meta.username}/.config/nix#${meta.name}";
+      rebuildnix = "sudo darwin-rebuild switch --flake /Users/${meta.username}/.config/nix#${meta.name}";
     };
 
     # Custom initialization
