@@ -1,4 +1,4 @@
-{pkgs, ...}:
+{ pkgs, ... }:
 ###################################################################################
 #
 #  macOS's System configuration
@@ -18,10 +18,8 @@
     '';
 
     defaults = {
-      menuExtraClock.Show24Hour = true; # show 24 hour clock
-
-      # other macOS's defaults configuration.
-      # ......
+      menuExtraClock.Show24Hour = true; # show 24 hour clockmenuExtraClock
+      NSGlobalDomain.NSAutomaticSpellingCorrectionEnabled = false;
     };
   };
 
