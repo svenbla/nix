@@ -26,6 +26,7 @@
     typst
     bruno
     colima
+    ghostty-bin
   ];
 
   homebrew = {
@@ -68,7 +69,7 @@
       #"docker-desktop"
       # "datagrip"
       # "figma"
-      "ghostty"
+      #"ghostty"
       # "google-chrome"
       # "iterm2"
       # "intellij-idea"
