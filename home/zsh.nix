@@ -1,11 +1,13 @@
 {
+  config,
   pkgs,
   meta,
   ...
-}:
-{
+}: {
   programs.zsh = {
     enable = true;
+    # Preserve the pre-26.05 location instead of moving Zsh files to XDG.
+    dotDir = config.home.homeDirectory;
 
     oh-my-zsh = {
       enable = true;

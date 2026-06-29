@@ -34,13 +34,21 @@
 
     onActivation = {
       autoUpdate = false;
-      # 'zap': uninstalls all formulae(and related files) not listed here.
-      cleanup = "zap";
+      # nix-darwin 26.05 still maps `zap` to Homebrew Bundle's removed
+      # `--force-cleanup` flag. These are the current equivalent flags.
+      cleanup = "none";
+      extraFlags = [
+        "--cleanup"
+        "--zap"
+      ];
     };
 
     taps = [
       "homebrew/services"
-      "deskflow/homebrew-tap"
+      {
+        name = "deskflow/homebrew-tap";
+        trusted = true;
+      }
     ];
 
     # `brew install`
@@ -66,7 +74,7 @@
       # "chrome-remote-desktop-host"
       # "cleanmymac"
       "deskflow/homebrew-tap/deskflow"
-      #"docker-desktop"
+      # "docker-desktop"
       # "datagrip"
       # "figma"
       #"ghostty"

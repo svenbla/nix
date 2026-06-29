@@ -5,17 +5,17 @@
   # Each item in `inputs` will be passed as a parameter to the `outputs` function after being pulled and built.
   inputs = {
     # nixpkgs-darwin.url = "github:nixos/nixpkgs/nixpkgs-unstable";
-    nixpkgs.url = "github:nixos/nixpkgs/nixpkgs-25.11-darwin";
-    nixpkgs-darwin.url = "github:nixos/nixpkgs/nixpkgs-25.11-darwin";
+    nixpkgs.url = "github:nixos/nixpkgs/nixpkgs-26.05-darwin";
+    nixpkgs-darwin.url = "github:nixos/nixpkgs/nixpkgs-26.05-darwin";
 
     darwin = {
-      url = "github:nix-darwin/nix-darwin/nix-darwin-25.11/";
+      url = "github:nix-darwin/nix-darwin/nix-darwin-26.05/";
       inputs.nixpkgs.follows = "nixpkgs-darwin";
     };
 
     # home-manager, used for managing user configuration
     home-manager = {
-      url = "github:nix-community/home-manager/release-25.11";
+      url = "github:nix-community/home-manager/release-26.05";
       # The `follows` keyword in inputs is used for inheritance.
       # Here, `inputs.nixpkgs` of home-manager is kept consistent with the `inputs.nixpkgs` of the current flake,
       # to avoid problems caused by different versions of nixpkgs dependencies.
@@ -73,6 +73,31 @@
     ];
 
     forAllSystems = fn: nixpkgs.lib.genAttrs systems (system: fn {pkgs = import nixpkgs {inherit system;};});
+
+    # forLinuxHosts = host: {
+    #   name = host.name;
+    #   value = nixpkgs.lib.nixosSystem {
+    #     specialArgs = {
+    #       inherit inputs lib;
+    #       meta = host;
+    #     };
+    #     system = host.platform;
+    #     modules = [
+    #       ./hosts/linux/configuration.nix
+    #       home-manager.nixosModules.home-manager
+    #       {
+    #         home-manager.backupFileExtension = "bak";
+    #         home-manager.useUserPackages = true;
+    #         home-manager.users.${host.username} = import ./hosts/linux/home.nix;
+    #         home-manager.extraSpecialArgs = {
+    #           inherit inputs;
+    #           nixlib = lib;
+    #           meta = host;
+    #         };
+    #       }
+    #     ];
+    #   };
+    # };
 
     forDarwinHosts = host: {
       name = host.name;

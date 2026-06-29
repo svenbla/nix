@@ -23,21 +23,21 @@ in {
     enableDefaultConfig = false;
     enable = true;
 
-    matchBlocks = {
+    settings = {
       "github.com" = {
-        hostname = "github.com";
-        user = "git";
-        identitiesOnly = false;
+        HostName = "github.com";
+        User = "git";
+        IdentitiesOnly = false;
       };
 
       "gitlab.com" = {
-        hostname = "gitlab.com";
-        user = "git";
-        identitiesOnly = false;
+        HostName = "gitlab.com";
+        User = "git";
+        IdentitiesOnly = false;
       };
 
       "*" = {
-        identityAgent = onePasswordAgentSocket;
+        IdentityAgent = onePasswordAgentSocket;
       };
     };
   };
